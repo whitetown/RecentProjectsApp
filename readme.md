@@ -33,8 +33,8 @@ There is no Dock icon — RecentProjects is a menubar-only app.
 
 ### First-launch prompts
 
-On macOS 13+ you may see a one-time alert: _"RecentProjects wants to access
-data managed by another application."_ Click **Allow** — the app needs this
+On macOS 13+ you may see a one-time alert: *"RecentProjects wants to access
+data managed by another application."* Click **Allow** — the app needs this
 to read VS Code / Xcode / Android Studio's own recent-files records.
 
 If a particular source stops working, granting **Full Disk Access** in
@@ -42,40 +42,28 @@ If a particular source stops working, granting **Full Disk Access** in
 
 ## Usage
 
-Click the menubar icon. You'll see something like:
+Click the menubar icon. You'll see projects grouped by parent folder, with
+each row showing how recently it was used:
 
-```
-★ Pinned
-  webapp                · today
-  receipts-android — finstat   · today
-
-whitetown ▸   castles          · yesterday
-              webapp-api       · 3d ago
-              castles/astro    · Dec 12
-
-tribo     ▸   web              · today
-              backend          · 2d ago
-              ios              · 12.06.2025
-
-temaron   ▸   webapp           · yesterday
-              ios              · 5d ago
-
-Refresh
-Preferences…
-Quit
-```
+![The menu, grouped by parent folder](menu.png)
 
 - **Click a project** → opens in your default editor (configurable).
-- **⌥-click a project** → reveals an action submenu:
-  - _Open in VS Code / Xcode / Android Studio / …_ — every app from your
-    Preferences list
-  - _Reveal in Finder_
-  - _Open in Terminal_
-  - _Pin_ — keeps it at the top, regardless of recency
-  - _Hide_ — removes it from the menu. Auto-restores if you reopen the
-    project in any tracked editor.
-  - _Copy Path_
 - **Refresh** — re-reads all source apps' recents on demand.
+
+### Hold ⌥ for the action submenu
+
+⌥-click any project to reveal extra actions:
+
+![Action submenu shown while Option is held](menu-alt.png)
+
+- *Open in VS Code / Xcode / Android Studio / …* — every app from your
+  Preferences list
+- *Reveal in Finder*
+- *Open in Terminal*
+- *Pin* — keeps the project at the top regardless of recency
+- *Hide* — removes it from the menu. Auto-restores if you reopen it in any
+  tracked editor.
+- *Copy Path*
 
 The list under each company submenu is sorted most-recent-first. Items
 "forgotten" by their source apps still appear because RecentProjects keeps
@@ -95,12 +83,12 @@ installed: VS Code, Xcode, Android Studio, Sourcetree, Cursor, Zed.
 
 ## How it discovers projects
 
-| Source         | Where it reads from                                                                                                                                                                                                                |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| VS Code        | `~/Library/Application Support/Code/User/globalStorage/storage.json`                                                                                                                                                               |
-| Xcode          | `~/Library/Preferences/com.apple.dt.Xcode.plist` (best-effort — modern Xcode versions store recents in varying locations)                                                                                                          |
-| Android Studio | `~/Library/Application Support/Google/AndroidStudio*/options/recentProjects.xml`                                                                                                                                                   |
-| Sourcetree     | `~/Library/Application Support/SourceTree/openWindowList`                                                                                                                                                                          |
+| Source         | Where it reads from |
+| -------------- | ------------------- |
+| VS Code        | `~/Library/Application Support/Code/User/globalStorage/storage.json` |
+| Xcode          | `~/Library/Preferences/com.apple.dt.Xcode.plist` (best-effort — modern Xcode versions store recents in varying locations) |
+| Android Studio | `~/Library/Application Support/Google/AndroidStudio*/options/recentProjects.xml` |
+| Sourcetree     | `~/Library/Application Support/SourceTree/openWindowList` |
 | Discovery      | Scans the parent folders you already work in (depth 2) for git repos and project markers (`package.json`, `Cargo.toml`, `pyproject.toml`, `Package.swift`, `*.xcodeproj`, etc.). Surfaces projects with activity in the last year. |
 
 All reads are local and read-only.
